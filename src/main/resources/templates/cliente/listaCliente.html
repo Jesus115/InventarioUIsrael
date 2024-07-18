@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{plantilla/app}">
+<head>
+<meta charset="UTF-8">
+<title>Clientes</title>
+</head>
+<body >
+  <div layout:fragment="espaciocontenidohtml">
+
+  
+    <div  class="pagetitle">
+      <h1>Lista Clientes</h1>
+      
+    </div><!-- End Page Title -->
+
+    <section class="section card" >
+      <div class="card-header">
+       
+	       	<a title="Nuevo inscripcion" th:href="@{/cliente_nuevo}" class="btn btn-success">
+	       		<i class="fa fa-plus"></i> Agregar
+	       	</a>
+      </div>
+      <div class="row card-body p-4 table-responsive">
+        <table class="table-bordered table-strip">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Razon Social</th>
+              <th>Ruc</th>
+              <th>Estado</th>
+              <th>Fecha Registro</th>
+              <th>Accion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="cliente:${lista}">
+              <td th:text="${cliente.idCliente}"></td>
+              <td th:text="${cliente.razonSocial}"></td>
+              <td th:text="${cliente.ruc}"></td>
+              <td th:text="${cliente.estado ? 'ACTIVO' : 'INACTIVO'}"></td>
+              <td th:text="${cliente.fechaRegistro}"></td>
+              <td >
+                <a th:href="@{/editar_cliente/}+${cliente.idCliente}" class="btn btn-warning">
+                  <i class="fa fa-pencil"></i> Editar
+                </a>
+                <a th:href="@{/eliminar_cliente/}+${cliente.idCliente}" class="btn btn-danger">
+                  <i class="ti-trash"></i> Eliminar
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </span>
+</body>
+</html>

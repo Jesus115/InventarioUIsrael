@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{plantilla/app}">
+
+<head>
+
+</head>
+
+<body>
+
+	<div layout:fragment="espaciocontenidohtml">
+		<div class="pcoded-content">
+			<!-- Page-header start -->
+			<div class="page-header">
+				<div class="page-block">
+					<div class="row align-items-center">
+						<div class="col-md-8">
+							<div class="page-header-title">
+								<h5 class="m-b-10">Crear Orden Venta</h5>
+								<p class="m-b-0">Registar nuevo Orden de Venta</p>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			<!-- Page-header end -->
+			<div class="pcoded-inner-content">
+				<div class="main-body">
+					<div class="page-wrapper">
+						<div class="page-body">
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="card">
+										<div class="card-header">
+											<h5>Nueva Venta</h5>
+											
+											<div class="card-header-right">
+												<ul class="list-unstyled card-option">
+													<li><i class="fa fa-chevron-left"></i></li>
+													<li><i class="fa fa-window-maximize full-card"></i></li>
+													<li><i class="fa fa-minus minimize-card"></i></li>
+													<li><i class="fa fa-refresh reload-card"></i></li>
+													<li><i class="fa fa-times close-card"></i></li>
+												</ul>
+											</div>
+										</div>
+										<div class="card-body">
+                                            
+                                            
+
+											<form th:action="@{/insertar_orden_venta}" th:object="${nuevoOrdenVenta}"
+												class="form-material" method="post">
+                                                <div class="form-group form-default">
+                                                                    
+                                                    <select name="cliente" th:field="*{cliente.idCliente}" required class="form-control">
+                                                        <option 
+                                                            th:each="cli : ${listarClientes}" 
+                                                            th:value="${cli.idCliente}" 
+                                                            th:text="${cli.razonSocial}"
+>
+                                                        </option>
+                                                    </select>
+                                                    
+                                                        <span
+                                                        class="form-bar"></span> <label class="float-label">Cliente</label>
+                                                </div>
+												<div class="form-group form-default">
+													<input type="number" name="total" class="form-control"
+														th:field="*{total}" required> <span
+														class="form-bar"></span> <label class="float-label">Valor Total</label>
+												</div>
+												
+												<div class="form-group form-default">
+													<input type="date" name="fechaVenta" class="form-control"
+														th:field="*{fechaVenta}" required> <span
+														class="form-bar"></span><label class="float-label">Fecha Venta</label>
+												</div>
+
+												
+												<div class="checkbox-fade fade-in-primary d-">
+													<label> <input type="checkbox" value=""
+														th:field="*{estado}"> <span class="cr"><i
+															class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+														<span class="text-inverse">Activo</span>
+													</label>
+												</div>
+												<div  class="form-group form-default">
+													<button type="submit" class="btn btn-primary">Guardar</button>
+                                                    <a title="Nuevo Detalle" th:href="@{/detalle_orden_venta_nuevo}+'/'+*{idOrdenVenta}" class="btn btn-success">
+                                                        <i class="fa fa-plus"></i> Agregar Detalle Venta
+                                                    </a>
+												</div>
+
+												<input type="hidden" th:field="*{idOrdenVenta}">
+											</form>
+										</div>
+                                        <div th:if="${not #lists.isEmpty(detalle)}" class="card-footer table-responsive">
+                                            <table class="table table-bordered table-strip">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Cliente</th>
+                                                        <th>Cantidad</th>
+                                                        <th>Precio</th>
+                                                        <th>Accion</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="ocd:${detalle}">
+                                                        <td th:text="${ocd.idDetalleVenta}"></td>
+                                                        <td th:text="${ocd.producto.nombre}"></td>
+                                                        <td th:text="${ocd.cantidad}"></td>
+                                                        <td th:text="${ocd.precioUnitario}"></td>
+                                                        <td>
+                                                            <a th:href="@{/editar_detalle_orden_venta/}+${ocd.idDetalleVenta}+'/'+${ocd.ordenVenta.idOrdenVenta}" class="btn btn-warning">
+                                                                <i class="fa fa-pencil"></i> Editar
+                                                              </a>
+                                                              <a th:href="@{/eliminar_detalle_orden_venta/}+${ocd.idDetalleVenta}" class="btn btn-danger">
+                                                                <i class="ti-trash"></i> Eliminar
+                                                              </a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

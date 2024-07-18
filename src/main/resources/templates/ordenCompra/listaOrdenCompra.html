@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{plantilla/app}">
+<head>
+<meta charset="UTF-8">
+<title>Orden Compra</title>
+</head>
+<body >
+  <div layout:fragment="espaciocontenidohtml">
+
+  
+    <div  class="pagetitle">
+      <h1>Lista Orden Compra</h1>
+      
+    </div><!-- End Page Title -->
+
+    <section class="section card" >
+      <div class="card-header">
+       
+	       	<a title="Nuevo inscripcion" th:href="@{/orden_compra_nuevo}" class="btn btn-success">
+	       		<i class="fa fa-plus"></i> Agregar
+	       	</a>
+      </div>
+      <div class="row card-body p-4 table-responsive">
+        <table class="table-bordered table-strip">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Proveedor</th>
+              <th>Total</th>
+              <th>fechaRegistro</th>
+              <th>Estado</th>
+              <th>Accion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="oc:${lista}">
+              <td th:text="${oc.idOrdenCompra}"></td>
+              <td th:text="${oc.proveedor.nombre}"></td>
+              <td th:text="${oc.total}"></td>
+              <td th:text="${oc.fechaRegistro}"></td>
+              <td th:text="${oc.estado ? 'ACTIVO' : 'INACTIVO'}"></td>
+              <td >
+                <a th:href="@{/editar_orden_compra/}+${oc.idOrdenCompra}" class="btn btn-warning">
+                  <i class="fa fa-pencil"></i> Editar
+                </a>
+                <a th:href="@{/eliminar_orden_compra/}+${oc.idOrdenCompra}" class="btn btn-danger">
+                  <i class="ti-trash"></i> Eliminar
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </span>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{plantilla/app}">
+<head>
+<meta charset="UTF-8">
+<title>Clientes</title>
+</head>
+<body >
+  <div layout:fragment="espaciocontenidohtml">
+
+  
+    <div  class="pagetitle">
+      <h1>Lista Clientes</h1>
+      
+    </div><!-- End Page Title -->
+
+    <section class="section card" >
+      <div class="card-header">
+       
+	       	<a title="Nuevo Venta" th:href="@{/orden_venta_nuevo}" class="btn btn-success">
+	       		<i class="fa fa-plus"></i> Agregar
+	       	</a>
+      </div>
+      <div class="row card-body p-4 table-responsive">
+        <table class="table-bordered table-strip">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Razon Social</th>
+              <th>Ruc</th>
+              <th>Total</th>
+              <th>Estado</th>
+              <th>Accion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="orventa:${lista}">
+              <td th:text="${orventa.idOrdenVenta}"></td>
+              <td th:text="${orventa.cliente.razonSocial}"></td>
+              <td th:text="${orventa.cliente.ruc}"></td>
+              <td th:text="${orventa.total}"></td>
+              <td th:text="${orventa.estado ? 'ACTIVO' : 'INACTIVO'}"></td>
+              <td th:text="${orventa.fechaVenta}"></td>
+              <td >
+                <a th:href="@{/editar_orden_venta/}+${orventa.idOrdenVenta}" class="btn btn-warning">
+                  <i class="fa fa-pencil"></i> Editar
+                </a>
+                <a th:href="@{/eliminar_orden_venta/}+${orventa.idOrdenVenta}" class="btn btn-danger">
+                  <i class="ti-trash"></i> Eliminar
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </span>
+</body>
+</html>
